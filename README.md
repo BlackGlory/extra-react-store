@@ -15,21 +15,21 @@ interface IState {
   count: number
 }
 
-const context = createStoreContext<IState>()
+const Context = createStoreContext<IState>()
 
 function App() {
   const store = useMemo<Store<IState>>(() => new Store({ count: 0 }), [])
 
   return (
-    <context.Provider value={store}>
+    <Context.Provider value={store}>
       <Viewer />
       <Controller />
-    </context.Provider>
+    </Context.Provider>
   )
 }
 
 function Viewer() {
-  const count = useSelector(context, state => state.count)
+  const count = useSelector(Context, state => state.count)
 
   return (
     <span>{count}</span>
@@ -37,7 +37,7 @@ function Viewer() {
 }
 
 function Controller() {
-  const update = useUpdater<IState>(context)
+  const update = useUpdater<IState>(Context)
 
   return (
     <button onClick={() => update(increment)}>Increment</button>
