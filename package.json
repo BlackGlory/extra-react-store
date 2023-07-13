@@ -1,0 +1,72 @@
+{
+  "name": "extra-react-store",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": "git@github.com:BlackGlory/extra-react-store.git",
+  "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "ts-patch install -s",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
+    "test": "vitest --run",
+    "prepublishOnly": "run-s prepare clean build",
+    "clean": "rimraf lib",
+    "build": "tsc --project tsconfig.build.json --outDir lib",
+    "release": "standard-version"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-s prepare lint build test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/react": "^18.2.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.42.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "extra-react-hooks": "^0.6.3",
+    "husky": "4",
+    "immer": "^10.0.2",
+    "jsdom": "^22.1.0",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^4.3.0",
+    "standard-version": "^9.3.2",
+    "ts-patch": "^2.1.0",
+    "tslib": "^2.5.3",
+    "typescript": "4.9.5",
+    "typescript-transform-paths": "^3.4.6",
+    "vite": "^4.4.3",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {
+    "@blackglory/prelude": "^0.3.3",
+    "@blackglory/structures": "^0.13.4",
+    "use-immer": "^0.9.0"
+  },
+  "peerDependencies": {
+    "immer": "^10.0.2",
+    "react": "^18"
+  }
+}
