@@ -10,16 +10,17 @@ export function usePartialUpdater<State, PartialState>(
 ): Updater<PartialState> {
   const store = useContext(context)
 
-  const updater: Updater<PartialState> = useCallback(newStateOrFn => {
+  const updater: Updater<PartialState> = useCallback(newPartialStateOrFn => {
     const oldState = store.getState()
 
     const newPartialState: PartialState = go(() => {
-      if (isFunction(newStateOrFn)) {
-        const fn = newStateOrFn
-        return produce(extractPartialState(oldState), fn)
+      if (isFunction(newPartialStateOrFn)) {
+        const fn = newPartialStateOrFn
+        const newPartialState = produce(extractPartialState(oldState), fn)
+        return newPartialState
       } else {
-        const newState = newStateOrFn
-        return newState
+        const newPartialState = newPartialStateOrFn
+        return newPartialState
       }
     })
 
