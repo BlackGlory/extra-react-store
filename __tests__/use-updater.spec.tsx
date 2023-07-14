@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { StoreContext } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
@@ -59,9 +59,9 @@ describe('useUpdater', () => {
   })
 })
 
-function Tester<IState>({ context, callback }: {
-  context: StoreContext<IState>
-  callback: (updater: Updater<IState>) => void
+function Tester<State>({ context, callback }: {
+  context: StoreContext<State>
+  callback: (updater: Updater<State>) => void
 }) {
   const update = useUpdater(context)
   callback(update)

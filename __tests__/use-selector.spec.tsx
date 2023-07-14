@@ -79,9 +79,9 @@ describe('useSelector', () => {
   })
 })
 
-function Tester<IState>({ context, selector }: {
-  context: StoreContext<IState>
-  selector: (state: IState) => string
+function Tester<State>({ context, selector }: {
+  context: StoreContext<State>
+  selector: (state: State) => string
 }) {
   const count = useRenderCounter()
   useSelector(context, selector)

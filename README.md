@@ -86,3 +86,14 @@ import { Updater } from 'use-immer'
 
 function useUpdater<State>(context: StoreContext<State>): Updater<State>
 ```
+
+### usePartialUpdater
+```ts
+import { Updater } from 'use-immer'
+
+function usePartialUpdater<State, PartialState>(
+  context: StoreContext<State>
+, extractPartialState: (state: State) => PartialState
+, mergePartialState: (state: State, partialState: PartialState) => State
+): Updater<PartialState>
+```

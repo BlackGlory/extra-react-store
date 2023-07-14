@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, Context } from 'react'
 import { render, screen } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { IStore } from '@src/types.js'
@@ -14,16 +14,19 @@ test('createStoreContext', () => {
 
   render(
     <context.Provider value={store}>
-      <Tester callback={callback} />
+      <Tester context={context} callback={callback} />
     </context.Provider>
   )
 
   expect(callback).toBeCalledTimes(1)
   expect(callback).toBeCalledWith(store)
-
-  function Tester({ callback }: { callback: (value: IStore<IState>) => void}) {
-    const value = useContext(context)
-    callback(value)
-    return <></>
-  }
 })
+
+function Tester<State>({ callback, context }: {
+  callback: (value: IStore<State>) => void
+  context: Context<IStore<State>>
+}) {
+  const value = useContext(context)
+  callback(value)
+  return <></>
+}
