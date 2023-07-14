@@ -1,9 +1,8 @@
 import { render } from '@testing-library/react'
 import { Store } from '@src/store.js'
-import { StoreContext } from '@src/types.js'
+import { StoreContext, Updater } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
 import { useUpdater } from '@src/use-updater.js'
-import { Updater } from 'use-immer'
 
 describe('useUpdater', () => {
   test('state', () => {

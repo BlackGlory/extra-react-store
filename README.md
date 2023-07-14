@@ -51,6 +51,8 @@ function increment(state: IState): void {
 
 ## API
 ```ts
+import { Draft } from 'immer'
+
 type StoreContext<State> = React.Context<IStore<State>>
 
 interface IStore<State> {
@@ -58,6 +60,11 @@ interface IStore<State> {
   setState(newState: State): void
   subscribe(fn: (state: State) => void): () => void
 }
+
+type Updater<State> = (...args:
+| [newState: State]
+| [fn: (draft: Draft<State>) => void]
+) => void
 ```
 
 ### Store
@@ -82,15 +89,11 @@ function useSelector<State, Value>(
 
 ### useUpdater
 ```ts
-import { Updater } from 'use-immer'
-
 function useUpdater<State>(context: StoreContext<State>): Updater<State>
 ```
 
 ### usePartialUpdater
 ```ts
-import { Updater } from 'use-immer'
-
 function usePartialUpdater<State, PartialState>(
   context: StoreContext<State>
 , extractPartialState: (state: State) => PartialState

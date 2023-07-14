@@ -1,8 +1,7 @@
 import { useCallback, useContext } from 'react'
-import { Updater } from 'use-immer'
 import { produce } from 'immer'
 import { go, isFunction } from '@blackglory/prelude'
-import { StoreContext } from './types.js'
+import { StoreContext, Updater } from './types.js'
 
 export function usePartialUpdater<State, PartialState>(
   context: StoreContext<State>
