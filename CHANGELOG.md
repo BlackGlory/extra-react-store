@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/BlackGlory/extra-react-store/compare/v0.1.1...v0.1.2) (2023-07-14)
+
+
+### Features
+
+* add `usePartialUpdater` ([0b66470](https://github.com/BlackGlory/extra-react-store/commit/0b6647086f9c95f84e02f23afe51253279106c2b))
+
 ### [0.1.1](https://github.com/BlackGlory/extra-react-store/compare/v0.1.0...v0.1.1) (2023-07-14)
 
 
