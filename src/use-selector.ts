@@ -15,7 +15,7 @@ export function useSelector<State, Value>(
       // 若新旧状态引用相等, 不会发生重新渲染.
       setValue(newValue)
     })
-  }, [store, value])
+  }, [store, selector, value])
 
   return value
 }
