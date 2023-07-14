@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/BlackGlory/extra-react-store/compare/v0.1.0...v0.1.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* deps of useEffect ([d28d1f6](https://github.com/BlackGlory/extra-react-store/commit/d28d1f6a9fe10cd3153d33c3ad4ae3b33257dae3))
+
 ## 0.1.0 (2023-07-13)
 
 
