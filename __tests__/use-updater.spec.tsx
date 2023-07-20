@@ -30,31 +30,60 @@ describe('useUpdater', () => {
     expect(store.getState()).toStrictEqual({ value: 'bar' })
   })
 
-  test('fn', () => {
-    interface IState {
-      value: string
-    }
-    const context = createStoreContext<IState>()
-    const store = new Store<IState>({ value: 'foo' })
-    const listener = vi.fn()
-    store.subscribe(listener)
-    const callback = vi.fn((update: Updater<IState>) => update(state => {
-      state.value = 'bar'
-    }))
+  describe('fn', () => {
+    test('modify draft', () => {
+      interface IState {
+        value: string
+      }
+      const context = createStoreContext<IState>()
+      const store = new Store<IState>({ value: 'foo' })
+      const listener = vi.fn()
+      store.subscribe(listener)
+      const callback = vi.fn((update: Updater<IState>) => update(state => {
+        state.value = 'bar'
+      }))
 
-    render(
-      <context.Provider value={store}>
-        <Tester
-          context={context}
-          callback={callback}
-        />
-      </context.Provider>
-    )
+      render(
+        <context.Provider value={store}>
+          <Tester
+            context={context}
+            callback={callback}
+          />
+        </context.Provider>
+      )
 
-    expect(callback).toBeCalledTimes(1)
-    expect(listener).toBeCalledTimes(1)
-    expect(listener).toBeCalledWith({ value: 'bar' })
-    expect(store.getState()).toStrictEqual({ value: 'bar' })
+      expect(callback).toBeCalledTimes(1)
+      expect(listener).toBeCalledTimes(1)
+      expect(listener).toBeCalledWith({ value: 'bar' })
+      expect(store.getState()).toStrictEqual({ value: 'bar' })
+    })
+
+    test('return a new state', () => {
+      interface IState {
+        value: string
+      }
+      const context = createStoreContext<IState>()
+      const store = new Store<IState>({ value: 'foo' })
+      const listener = vi.fn()
+      store.subscribe(listener)
+      const callback = vi.fn((update: Updater<IState>) => update(state => {
+        return { value: 'bar' }
+      }))
+
+      render(
+        <context.Provider value={store}>
+          <Tester
+            context={context}
+            callback={callback}
+          />
+        </context.Provider>
+      )
+
+      expect(callback).toBeCalledTimes(1)
+      expect(listener).toBeCalledTimes(1)
+      expect(listener).toBeCalledWith({ value: 'bar' })
+      expect(store.getState()).toStrictEqual({ value: 'bar' })
+    })
   })
 })
 

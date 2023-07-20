@@ -1,5 +1,5 @@
 import { useCallback, useContext } from 'react'
-import { produce } from 'immer'
+import { Draft, produce } from 'immer'
 import { go, isFunction } from '@blackglory/prelude'
 import { StoreContext, Updater } from './types.js'
 
@@ -16,7 +16,11 @@ export function usePartialUpdater<State, PartialState>(
     const newPartialState: PartialState = go(() => {
       if (isFunction(newPartialStateOrFn)) {
         const fn = newPartialStateOrFn
-        const newPartialState = produce(extractPartialState(oldState), fn)
+        const newPartialState = produce<PartialState, Draft<PartialState>>(
+          extractPartialState(oldState)
+          // @ts-ignore
+        , fn
+        )
         return newPartialState
       } else {
         const newPartialState = newPartialStateOrFn

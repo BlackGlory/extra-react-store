@@ -10,5 +10,5 @@ export interface IStore<State> {
 
 export type Updater<State> = (...args:
 | [newState: State]
-| [fn: (draft: Draft<State>) => void]
+| [fn: (draft: Draft<State>) => void | State]
 ) => void

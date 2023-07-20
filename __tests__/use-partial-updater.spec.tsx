@@ -53,51 +53,101 @@ describe('usePartialUpdater', () => {
     })
   })
 
-  test('fn', () => {
-    interface IState {
-      shallow: {
-        deep: string
+  describe('fn', () => {
+    test('modify draft', () => {
+      interface IState {
+        shallow: {
+          deep: string
+        }
       }
-    }
-    const context = createStoreContext<IState>()
-    const store = new Store<IState>({
-      shallow: {
-        deep: 'foo'
-      }
-    })
-    const listener = vi.fn()
-    store.subscribe(listener)
-    const callback = vi.fn((update: Updater<IState['shallow']>) => {
-      update(state => {
-        state.deep = 'bar'
+      const context = createStoreContext<IState>()
+      const store = new Store<IState>({
+        shallow: {
+          deep: 'foo'
+        }
+      })
+      const listener = vi.fn()
+      store.subscribe(listener)
+      const callback = vi.fn((update: Updater<IState['shallow']>) => {
+        update(state => {
+          state.deep = 'bar'
+        })
+      })
+
+      render(
+        <context.Provider value={store}>
+          <Tester
+            context={context}
+            extractPartialState={state => state.shallow}
+            mergePartialState={(state, partialState) => ({
+              ...state
+            , shallow: partialState
+            })}
+            callback={callback}
+          />
+        </context.Provider>
+      )
+
+      expect(callback).toBeCalledTimes(1)
+      expect(listener).toBeCalledTimes(1)
+      expect(listener).toBeCalledWith({
+        shallow: {
+          deep: 'bar'
+        }
+      })
+      expect(store.getState()).toStrictEqual({
+        shallow: {
+          deep: 'bar'
+        }
       })
     })
 
-    render(
-      <context.Provider value={store}>
-        <Tester
-          context={context}
-          extractPartialState={state => state.shallow}
-          mergePartialState={(state, partialState) => ({
-            ...state
-          , shallow: partialState
-          })}
-          callback={callback}
-        />
-      </context.Provider>
-    )
+    test('return a new state', () => {
+      interface IState {
+        shallow: {
+          deep: string
+        }
+      }
+      const context = createStoreContext<IState>()
+      const store = new Store<IState>({
+        shallow: {
+          deep: 'foo'
+        }
+      })
+      const listener = vi.fn()
+      store.subscribe(listener)
+      const callback = vi.fn((update: Updater<IState['shallow']>) => {
+        update(state => {
+          return { deep: 'bar' }
+        })
+      })
 
-    expect(callback).toBeCalledTimes(1)
-    expect(listener).toBeCalledTimes(1)
-    expect(listener).toBeCalledWith({
-      shallow: {
-        deep: 'bar'
-      }
-    })
-    expect(store.getState()).toStrictEqual({
-      shallow: {
-        deep: 'bar'
-      }
+      render(
+        <context.Provider value={store}>
+          <Tester
+            context={context}
+            extractPartialState={state => state.shallow}
+            mergePartialState={(state, partialState) => ({
+              ...state
+            , shallow: partialState
+            })}
+            callback={callback}
+          />
+        </context.Provider>
+      )
+
+      expect(callback).toBeCalledTimes(1)
+      expect(listener).toBeCalledTimes(1)
+      expect(listener).toBeCalledWith({
+        shallow: {
+          deep: 'bar'
+        }
+      })
+      expect(store.getState()).toStrictEqual({
+        shallow: {
+          deep: 'bar'
+        }
+      })
     })
   })
 })
