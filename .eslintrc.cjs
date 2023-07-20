@@ -18,6 +18,7 @@ module.exports = {
   , '@typescript-eslint/ban-ts-comment': 'off'
   , '@typescript-eslint/no-extra-semi': 'off'
   , '@typescript-eslint/no-inferrable-types': 'off'
+  , '@typescript-eslint/no-unused-vars': 'off'
   }
 , settings: {
     react: {

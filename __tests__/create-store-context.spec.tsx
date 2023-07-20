@@ -1,5 +1,5 @@
 import { useContext, Context } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { IStore } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
