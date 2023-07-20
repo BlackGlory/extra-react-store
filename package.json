@@ -62,7 +62,8 @@
   },
   "dependencies": {
     "@blackglory/prelude": "^0.3.3",
-    "@blackglory/structures": "^0.13.4"
+    "@blackglory/structures": "^0.13.4",
+    "extra-utils": "^5.4.0"
   },
   "peerDependencies": {
     "immer": "^10.0.2",
