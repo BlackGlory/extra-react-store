@@ -84,6 +84,7 @@ function createStoreContext<State>(): StoreContext<State>
 function useSelector<State, Value>(
   context: StoreContext<State>
 , selector: (state: State) => Value
+, isEqual: (a: Value, b: Value) => boolean = (a, b) => a === b
 ): Value
 ```
 
