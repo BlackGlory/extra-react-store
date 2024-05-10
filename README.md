@@ -8,6 +8,7 @@ yarn add extra-react-store
 
 ## Usage
 ```tsx
+import { Draft } from 'immer'
 import { useMemo } from 'react'
 import { createStoreContext, Store, useSelector, useUpdater } from 'extra-react-store'
 
@@ -40,12 +41,14 @@ function Controller() {
   const update = useUpdater<IState>(Context)
 
   return (
-    <button onClick={() => update(increment)}>Increment</button>
+    <button onClick={() => update(increment(1))}>Increment</button>
   )
 }
 
-function increment(state: IState): void {
-  state.count++
+function increment(value: number): (state: Draft<IState>) => void {
+  return state => {
+    state.count += value
+  }
 }
 ```
 
