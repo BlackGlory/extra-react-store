@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/BlackGlory/extra-react-store/compare/v0.1.7...v0.1.8) (2024-05-20)
+
+
+### Bug Fixes
+
+* replace `useEffect` with `useLayoutEffect` ([9de3a03](https://github.com/BlackGlory/extra-react-store/commit/9de3a03134cb4058f828bd56c19258214ef9d7de))
+
 ### [0.1.7](https://github.com/BlackGlory/extra-react-store/compare/v0.1.6...v0.1.7) (2024-05-20)
 
 
