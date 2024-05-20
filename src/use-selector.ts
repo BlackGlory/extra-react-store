@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useLayoutEffect } from 'react'
 import { StoreContext } from './types.js'
 import { isReferenceEqual } from 'extra-utils'
 
@@ -10,7 +10,8 @@ export function useSelector<State, Value>(
   const store = useContext(context)
   const [[value], setBox] = useState(() => [selector(store.getState())])
 
-  useEffect(() => {
+  // `useEffect` will be called too late, resulting in not subscribing in time.
+  useLayoutEffect(() => {
     return store.subscribe(state => {
       const newValue = selector(state)
 
