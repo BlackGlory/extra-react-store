@@ -18,7 +18,7 @@ export function useSelector<State, Value>(
         setBox([newValue])
       }
     })
-  }, [store, selector, value, setBox])
+  }, [store, selector, isEqual, value, setBox])
 
   return value
 }
