@@ -264,10 +264,26 @@
     "@blackglory/pass" "^1.1.0"
     extra-utils "^5.1.1"
 
+"@blackglory/errors@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-3.0.3.tgz#a03e7cc2bc71a94a23e2bb64dcd48da863c575ac"
+  integrity sha512-wVflMlDn0opIApeNNOANGoG71AOmi+CKIln7KUexAhrwo/MN/txUECLacTZNhRiEJKroDM3MkOIINRG4F06PZg==
+  dependencies:
+    "@blackglory/pass" "^1.1.0"
+    extra-utils "^5.1.1"
+
 "@blackglory/go@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@blackglory/go/-/go-1.1.2.tgz#bb76676dc5938d2ef28daea82f198e7fee4bcc92"
   integrity sha512-kkd9yrftU3ODT84hVOg9U91cyH53/Mw1cbG4EEJ7d7Nb3k4DRu15BeBgyYUi/AttII6c8o88fnTTou+8wrMYzQ==
+  dependencies:
+    extra-timers "^0.2.5"
+    justypes "^2.0.0"
+
+"@blackglory/go@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@blackglory/go/-/go-1.1.3.tgz#50ebf5c3001b1113959221a08045de8a6f27d80a"
+  integrity sha512-BbxKpUxf/mtBzPYrC18YxpRicp8cL85PGJQndO6suS+hgf3NZ69VN7mciv7BQdjVNHW8tbM5+E4OZv100yVHCA==
   dependencies:
     extra-timers "^0.2.5"
     justypes "^2.0.0"
@@ -296,6 +312,11 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@blackglory/pass/-/pass-1.1.0.tgz#f281b7647bf542f98ede594338742ab406f97afc"
   integrity sha512-J8epu3YVtfzP+VHJE5RR42bI0tAGBZ4nK8+0zAOfY8amw58ykWb2tUJD+N4l6SCpGZ/fQ5S6tQDl+qyNoOIhzg==
+
+"@blackglory/pass@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@blackglory/pass/-/pass-1.1.1.tgz#91e1cf9988cb14e58c7252a20b6b410fd3b6b9bc"
+  integrity sha512-amK123up/MF1ico/Zuvm8aGWU9iWj8D64IOaq5Mn1fAP/hHZ/8JM7ypkE88Nr8UXhpfDA+9Gdh9TXzXjYA6z9A==
 
 "@blackglory/prelude@^0.2.0", "@blackglory/prelude@^0.2.2", "@blackglory/prelude@^0.2.4":
   version "0.2.4"
@@ -2187,13 +2208,15 @@ extra-abort@^0.3.6:
     justypes "^4.2.0"
 
 extra-abort@^0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/extra-abort/-/extra-abort-0.3.7.tgz#1925a4df84b6ed1b9ac57ed38e035f4746029eee"
-  integrity sha512-1w1DdOhl7t2leugSf1SO77SWuA4bRdEWmdd0c4J2JZLUrb8tnN4pLUtfc0PhV9X69m490N/Eo/hR7cMtAYjRPQ==
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/extra-abort/-/extra-abort-0.3.9.tgz#3ed4f63e9a39bd8ca5a4410a508ec1beb4bc3a00"
+  integrity sha512-vs6PnLHk0A/1YNDkCaeFuHReB9CGoCiBQc4AaunAcOXAa0Wx8viML575T48XNnxx+clsp9yvKQ00Q6TWrN/vPA==
   dependencies:
-    "@blackglory/errors" "^3.0.0"
-    iterable-operator "^4.0.5"
-    justypes "^4.2.0"
+    "@blackglory/errors" "^3.0.3"
+    "@blackglory/go" "^1.1.3"
+    "@blackglory/pass" "^1.1.1"
+    iterable-operator "^4.0.6"
+    justypes "^4.2.1"
 
 extra-compatible@^0.1.8:
   version "0.1.8"
@@ -2346,11 +2369,12 @@ extra-rand@^0.1.1:
   resolved "https://registry.yarnpkg.com/extra-rand/-/extra-rand-0.1.1.tgz#e75e71ec96eb2f9b47d2a3c6513b3fb042f05a45"
   integrity sha512-sDpJWzuKa1bTrVVG3dkCiNMt93NanphQIWhW4tUS9PDiA0KTZ+fzyS4Idw+7/lH5ZzxtOiHEJEnBWSN4gi8gyA==
 
-extra-react-hooks@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/extra-react-hooks/-/extra-react-hooks-0.6.3.tgz#2dd3b4841310ee1e844207ff1b69cd0701633e70"
-  integrity sha512-pT8UKd/4ldzM2oxOzU9bDksTVMoZTx3wwu5faRx0REmPPsaEnbyCRk2urApmVTB5sSK7oRoSPPhWm1VthaLbLQ==
+extra-react-hooks@^0.6.9:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/extra-react-hooks/-/extra-react-hooks-0.6.9.tgz#5f6cd4f5e25523c32516832a02b9bc3849fd0694"
+  integrity sha512-lS9U7YK1KLrlI0IRtQwu9EiPgMQNEO1TiiW+r5B2nwRqmfpi9o7Bh8SCZ+wDaaAR50aMmsZCufMGuWBqGHqPvQ==
   dependencies:
+    "@blackglory/errors" "^3.0.3"
     "@blackglory/prelude" "^0.3.3"
     extra-abort "^0.3.7"
     extra-fsm "^0.2.1"

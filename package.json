@@ -43,7 +43,6 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "extra-react-hooks": "^0.6.3",
     "husky": "4",
     "immer": "^10.0.2",
     "jsdom": "^22.1.0",
@@ -63,6 +62,7 @@
   "dependencies": {
     "@blackglory/prelude": "^0.3.3",
     "@blackglory/structures": "^0.13.4",
+    "extra-react-hooks": "^0.6.9",
     "extra-utils": "^5.4.0"
   },
   "peerDependencies": {
