@@ -13,10 +13,13 @@ export function useSelector<State, Value>(
 
   // `useEffect` will be called too late, resulting in not subscribing in time.
   useIsomorphicLayoutEffect(() => {
+    let oldValue = value
+
     return store.subscribe(state => {
       const newValue = selector(state)
 
-      if (!isEqual(value, newValue)) {
+      if (!isEqual(oldValue, newValue)) {
+        oldValue = newValue
         setBox([newValue])
       }
     })

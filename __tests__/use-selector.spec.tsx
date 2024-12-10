@@ -20,7 +20,7 @@ describe('useSelector', () => {
       </context.Provider>
     )
 
-    expect(screen.queryByText('Render: 1')).not.toBeNull()
+    expect(screen.queryByText(JSON.stringify({ count: 1, value: 'foo' }))).not.toBeNull()
     expect(selector).toBeCalledTimes(1)
     expect(selector).toBeCalledWith({ value: 'foo' })
     expect(selector).toReturnWith('foo')
@@ -44,7 +44,7 @@ describe('useSelector', () => {
         store.setState({ value: 'foo' })
       })
 
-      expect(screen.queryByText('Render: 1')).not.toBeNull()
+      expect(screen.queryByText(JSON.stringify({ count: 1, value: 'foo' }))).not.toBeNull()
       expect(selector).toBeCalledTimes(2)
       expect(selector).nthCalledWith(1, { value: 'foo' })
       expect(selector).nthReturnedWith(1, 'foo')
@@ -69,12 +69,40 @@ describe('useSelector', () => {
         store.setState({ value: 'bar' })
       })
 
-      expect(screen.queryByText('Render: 2')).not.toBeNull()
+      expect(screen.queryByText(JSON.stringify({ count: 2, value: 'bar' }))).not.toBeNull()
       expect(selector).toBeCalledTimes(2)
       expect(selector).nthCalledWith(1, { value: 'foo' })
       expect(selector).nthReturnedWith(1, 'foo')
       expect(selector).nthCalledWith(2, { value: 'bar' })
       expect(selector).nthReturnedWith(2, 'bar')
+    })
+
+    test('edge: update value before component re-renders', () => {
+      interface IState {
+        value: string
+      }
+      const context = createStoreContext<IState>()
+      const store = new Store<IState>({ value: 'foo' })
+      const selector = vi.fn((state: IState) => state.value)
+
+      render(
+        <context.Provider value={store}>
+          <Tester context={context} selector={selector} />
+        </context.Provider>
+      )
+      act(() => {
+        store.setState({ value: 'bar' })
+        store.setState({ value: 'foo' })
+      })
+
+      expect(screen.queryByText(JSON.stringify({ count: 2, value: 'foo' }))).not.toBeNull()
+      expect(selector).toBeCalledTimes(3)
+      expect(selector).nthCalledWith(1, { value: 'foo' })
+      expect(selector).nthReturnedWith(1, 'foo')
+      expect(selector).nthCalledWith(2, { value: 'bar' })
+      expect(selector).nthReturnedWith(2, 'bar')
+      expect(selector).nthCalledWith(3, { value: 'foo' })
+      expect(selector).nthReturnedWith(3, 'foo')
     })
   })
 })
@@ -84,6 +112,7 @@ function Tester<State>({ context, selector }: {
   selector: (state: State) => string
 }) {
   const count = useRenderCounter()
-  useSelector(context, selector)
-  return `Render: ${count}`
+  const value = useSelector(context, selector)
+
+  return JSON.stringify({ count, value })
 }
