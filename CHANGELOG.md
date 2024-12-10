@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/BlackGlory/extra-react-store/compare/v0.1.9...v0.1.10) (2024-12-10)
+
+
+### Bug Fixes
+
+* **use-selector:** update value before component re-renders ([21eebac](https://github.com/BlackGlory/extra-react-store/commit/21eebac873fdd61dcd83e00360bf505518cd3c53))
+
 ### [0.1.9](https://github.com/BlackGlory/extra-react-store/compare/v0.1.8...v0.1.9) (2024-05-20)
 
 ### [0.1.8](https://github.com/BlackGlory/extra-react-store/compare/v0.1.7...v0.1.8) (2024-05-20)
