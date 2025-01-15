@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/BlackGlory/extra-react-store/compare/v0.1.10...v0.2.0) (2025-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* It requires Node.js v22
+
+* upgrade dependencies ([37c38b3](https://github.com/BlackGlory/extra-react-store/commit/37c38b368f7e3681cfda20f23de83c291a589674))
+
 ### [0.1.10](https://github.com/BlackGlory/extra-react-store/compare/v0.1.9...v0.1.10) (2024-12-10)
 
 
