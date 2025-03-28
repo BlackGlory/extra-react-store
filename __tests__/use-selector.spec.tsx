@@ -34,12 +34,12 @@ describe('useSelector', () => {
       const context = createStoreContext<IState>()
       const store = new Store<IState>({ value: 'foo' })
       const selector = vi.fn((state: IState) => state.value)
-
       render(
         <context.Provider value={store}>
           <Tester context={context} selector={selector} />
         </context.Provider>
       )
+
       act(() => {
         store.setState({ value: 'foo' })
       })
@@ -59,12 +59,12 @@ describe('useSelector', () => {
       const context = createStoreContext<IState>()
       const store = new Store<IState>({ value: 'foo' })
       const selector = vi.fn((state: IState) => state.value)
-
       render(
         <context.Provider value={store}>
           <Tester context={context} selector={selector} />
         </context.Provider>
       )
+
       act(() => {
         store.setState({ value: 'bar' })
       })
@@ -84,12 +84,12 @@ describe('useSelector', () => {
       const context = createStoreContext<IState>()
       const store = new Store<IState>({ value: 'foo' })
       const selector = vi.fn((state: IState) => state.value)
-
       render(
         <context.Provider value={store}>
           <Tester context={context} selector={selector} />
         </context.Provider>
       )
+
       act(() => {
         store.setState({ value: 'bar' })
         store.setState({ value: 'foo' })
