@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { useIsomorphicLayoutEffect } from 'extra-react-hooks'
+import { useIIFE } from 'extra-react-hooks'
 import { StoreContext } from './types.js'
 import { isReferenceEqual } from 'extra-utils'
 
@@ -11,8 +11,7 @@ export function useSelector<State, Value>(
   const store = useContext(context)
   const [[value], setBox] = useState(() => [selector(store.getState())])
 
-  // `useEffect` will be called too late, resulting in not subscribing in time.
-  useIsomorphicLayoutEffect(() => {
+  useIIFE(() => {
     let oldValue = value
 
     return store.subscribe(state => {
