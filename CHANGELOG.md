@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/BlackGlory/extra-react-store/compare/v0.2.1...v0.2.2) (2025-04-06)
+
+
+### Bug Fixes
+
+* **use-selector:** selector updating case, zombie children problem ([3d00ebb](https://github.com/BlackGlory/extra-react-store/commit/3d00ebb0096a69c0c0ce52a669139c976f75dca7))
+
 ### [0.2.1](https://github.com/BlackGlory/extra-react-store/compare/v0.2.0...v0.2.1) (2025-04-02)
 
 ## [0.2.0](https://github.com/BlackGlory/extra-react-store/compare/v0.1.10...v0.2.0) (2025-01-15)
