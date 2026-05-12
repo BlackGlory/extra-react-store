@@ -15,7 +15,11 @@ export function usePartialUpdater<State, PartialState>(
     const oldState = store.getState()
 
     const newPartialState: PartialState = go(() => {
-      if (isFunction(newPartialStateOrFn)) {
+      if (
+        isFunction<(draft: Draft<PartialState>) => void | PartialState>(
+          newPartialStateOrFn
+        )
+      ) {
         const fn = newPartialStateOrFn
         const newPartialState = produce<PartialState, Draft<PartialState>>(
           extractPartialState(oldState)
