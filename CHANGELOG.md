@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.4](https://github.com/BlackGlory/extra-react-store/compare/v0.2.3...v0.2.4) (2026-05-12)
+
+
+### Features
+
+* add support for `immer^11` ([869c3b0](https://github.com/BlackGlory/extra-react-store/commit/869c3b00a2f14f371e218c457f14c67289d960d2))
+
 ### [0.2.3](https://github.com/BlackGlory/extra-react-store/compare/v0.2.2...v0.2.3) (2025-11-30)
 
 
