@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/BlackGlory/extra-react-store/compare/v0.2.4...v0.2.5) (2026-05-23)
+
+
+### Features
+
+* **create-store-context:** improve default stores ([51aa6c8](https://github.com/BlackGlory/extra-react-store/commit/51aa6c881c86d461ea50985bfc564ec370c6f18c))
+
 ### [0.2.4](https://github.com/BlackGlory/extra-react-store/compare/v0.2.3...v0.2.4) (2026-05-12)
 
 
