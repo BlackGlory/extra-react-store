@@ -28,5 +28,5 @@ function Tester<State>({ callback, context }: {
 }) {
   const value = useContext(context)
   callback(value)
-  return <></>
+  return null
 }

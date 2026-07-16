@@ -93,5 +93,5 @@ function Tester<State>({ context, callback }: {
 }) {
   const update = useUpdater(context)
   callback(update)
-  return <></>
+  return null
 }

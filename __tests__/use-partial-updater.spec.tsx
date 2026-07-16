@@ -169,5 +169,5 @@ function Tester<State, PartialState>({
   , mergePartialState
   )
   callback(update)
-  return <></>
+  return null
 }
