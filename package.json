@@ -61,10 +61,10 @@
     "vitest": "^3.1.1"
   },
   "dependencies": {
-    "@blackglory/prelude": "^0.4.0",
-    "@blackglory/structures": "^0.14.14",
-    "extra-react-hooks": "^0.8.8",
-    "extra-utils": "^6.1.0"
+    "@blackglory/prelude": "^0.5.0",
+    "@blackglory/structures": "^0.15.4",
+    "extra-react-hooks": "^0.8.13",
+    "extra-utils": "^6.2.0"
   },
   "peerDependencies": {
     "immer": "^10 || ^11",
