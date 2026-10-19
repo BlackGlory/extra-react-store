@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/BlackGlory/extra-react-store/compare/v0.2.5...v0.2.6) (2026-10-19)
+
+
+### Features
+
+* **use-updater:** return the same reference ([301b229](https://github.com/BlackGlory/extra-react-store/commit/301b229ed50d6aef3c9755733afdd1c855313117))
+
 ### [0.2.5](https://github.com/BlackGlory/extra-react-store/compare/v0.2.4...v0.2.5) (2026-05-23)
 
 
