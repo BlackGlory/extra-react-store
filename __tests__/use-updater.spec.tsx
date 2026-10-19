@@ -1,10 +1,21 @@
-import { render } from '@testing-library/react'
+import { render, renderHook } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { StoreContext, Updater } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
 import { useUpdater } from '@src/use-updater.js'
 
 describe('useUpdater', () => {
+  test('reference equality', () => {
+    const context = createStoreContext<unknown>()
+
+    const { rerender, result } = renderHook(() => useUpdater(context))
+    const firstRun = result.current
+    rerender()
+    const secondRun = result.current
+
+    expect(firstRun).toBe(secondRun)
+  })
+
   test('state', () => {
     interface IState {
       value: string
