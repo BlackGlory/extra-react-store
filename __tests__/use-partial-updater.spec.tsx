@@ -1,10 +1,27 @@
-import { render } from '@testing-library/react'
+import { render, renderHook } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { StoreContext, Updater } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
 import { usePartialUpdater } from '@src/use-partial-updater.js'
 
 describe('usePartialUpdater', () => {
+  test('reference equality', () => {
+    const context = createStoreContext<unknown>()
+    const extractPartialState = vi.fn()
+    const mergePartialState = vi.fn()
+
+    const { rerender, result } = renderHook(() => usePartialUpdater(
+      context
+    , extractPartialState
+    , mergePartialState
+    ))
+    const result1 = result.current
+    rerender()
+    const result2 = result.current
+
+    expect(result2).toBe(result1)
+  })
+
   test('state', () => {
     interface IState {
       shallow: {

@@ -9,11 +9,11 @@ describe('useUpdater', () => {
     const context = createStoreContext<unknown>()
 
     const { rerender, result } = renderHook(() => useUpdater(context))
-    const firstRun = result.current
+    const result1 = result.current
     rerender()
-    const secondRun = result.current
+    const result2 = result.current
 
-    expect(firstRun).toBe(secondRun)
+    expect(result2).toBe(result1)
   })
 
   test('state', () => {
