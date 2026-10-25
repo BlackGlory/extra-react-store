@@ -1,21 +1,21 @@
-import { useContext, Context } from 'react'
 import { render } from '@testing-library/react'
 import { Store } from '@src/store.js'
-import { IStore } from '@src/types.js'
+import { IStore, StoreContext } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
+import { useStrictContext } from 'extra-react-hooks'
 
 test('createStoreContext', () => {
   interface IState {
     value: string
   }
-  const context = createStoreContext<IState>()
+  const Context = createStoreContext<IState>()
   const store = new Store<IState>({ value: 'foo' })
   const callback = vi.fn()
 
   render(
-    <context.Provider value={store}>
-      <Tester context={context} callback={callback} />
-    </context.Provider>
+    <Context.Provider value={store}>
+      <Tester context={Context} callback={callback} />
+    </Context.Provider>
   )
 
   expect(callback).toBeCalledTimes(1)
@@ -24,9 +24,9 @@ test('createStoreContext', () => {
 
 function Tester<State>({ callback, context }: {
   callback: (value: IStore<State>) => void
-  context: Context<IStore<State>>
+  context: StoreContext<State>
 }) {
-  const value = useContext(context)
+  const value = useStrictContext(context)
   callback(value)
   return null
 }

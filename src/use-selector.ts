@@ -1,5 +1,5 @@
-import { useContext, useRef } from 'react'
-import { useIIFE, useForceUpdate } from 'extra-react-hooks'
+import { useRef } from 'react'
+import { useIIFE, useForceUpdate, useStrictContext } from 'extra-react-hooks'
 import { StoreContext } from './types.js'
 import { isReferenceEqual } from 'extra-utils'
 
@@ -9,7 +9,7 @@ export function useSelector<State, Value>(
 , isEqual: (a: Value, b: Value) => boolean = isReferenceEqual
 ): Value {
   const forceUpdate = useForceUpdate()
-  const store = useContext(context)
+  const store = useStrictContext(context)
 
   const updateRequireRef = useRef<boolean>(true)
   useIIFE(() => {

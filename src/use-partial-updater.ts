@@ -1,15 +1,16 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { Draft, produce } from 'immer'
 import { go } from '@blackglory/prelude'
 import { isFunction } from 'extra-utils'
 import { StoreContext, Updater } from './types.js'
+import { useStrictContext } from 'extra-react-hooks'
 
 export function usePartialUpdater<State, PartialState>(
   context: StoreContext<State>
 , extractPartialState: (state: State) => PartialState
 , mergePartialState: (state: State, partialState: PartialState) => State
 ): Updater<PartialState> {
-  const store = useContext(context)
+  const store = useStrictContext(context)
 
   const updater: Updater<PartialState> = useCallback(newPartialStateOrFn => {
     const oldState = store.getState()

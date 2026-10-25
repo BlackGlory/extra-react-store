@@ -1,6 +1,7 @@
 import { Draft } from 'immer'
+import { StrictContext } from 'extra-react-hooks'
 
-export type StoreContext<State> = React.Context<IStore<State>>
+export type StoreContext<State> = StrictContext<IStore<State>>
 
 export interface IStore<State> {
   getState(): State

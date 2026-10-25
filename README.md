@@ -55,8 +55,9 @@ function increment(value: number): (state: Draft<IState>) => void {
 ## API
 ```ts
 import { Draft } from 'immer'
+import { StrictContext } from 'extra-react-hooks'
 
-type StoreContext<State> = React.Context<IStore<State>>
+type StoreContext<State> = StrictContext<IStore<State>>
 
 interface IStore<State> {
   getState(): State

@@ -6,15 +6,27 @@ import { usePartialUpdater } from '@src/use-partial-updater.js'
 
 describe('usePartialUpdater', () => {
   test('reference equality', () => {
-    const context = createStoreContext<unknown>()
+    const store = new Store({})
+    const Context = createStoreContext<unknown>()
     const extractPartialState = vi.fn()
     const mergePartialState = vi.fn()
 
-    const { rerender, result } = renderHook(() => usePartialUpdater(
-      context
-    , extractPartialState
-    , mergePartialState
-    ))
+    const { rerender, result } = renderHook(
+      () => usePartialUpdater(
+        Context
+      , extractPartialState
+      , mergePartialState
+      )
+    , {
+        wrapper({ children }) {
+          return (
+            <Context.Provider value={store}>
+              {children}
+            </Context.Provider>
+          )
+        }
+      }
+    )
     const result1 = result.current
     rerender()
     const result2 = result.current

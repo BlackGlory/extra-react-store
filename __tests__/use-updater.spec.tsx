@@ -6,9 +6,21 @@ import { useUpdater } from '@src/use-updater.js'
 
 describe('useUpdater', () => {
   test('reference equality', () => {
-    const context = createStoreContext<unknown>()
+    const store = new Store({})
+    const Context = createStoreContext<unknown>()
 
-    const { rerender, result } = renderHook(() => useUpdater(context))
+    const { rerender, result } = renderHook(
+      () => useUpdater(Context)
+    , {
+        wrapper({ children }) {
+          return (
+            <Context.Provider value={store}>
+              {children}
+            </Context.Provider>
+          )
+        }
+      }
+    )
     const result1 = result.current
     rerender()
     const result2 = result.current
