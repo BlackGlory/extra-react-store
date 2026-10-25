@@ -1,10 +1,11 @@
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, renderHook, act } from '@testing-library/react'
 import { Store } from '@src/store.js'
 import { createStoreContext } from '@src/create-store-context.js'
 import { StoreContext } from '@src/types.js'
 import { useSelector } from '@src/use-selector.js'
 import { useRenderCounter } from 'extra-react-hooks'
 import { assert } from '@blackglory/prelude'
+import { createWrapper } from './utils.js'
 
 describe('useSelector', () => {
   test('render', () => {
@@ -15,13 +16,15 @@ describe('useSelector', () => {
     const store = new Store<IState>({ value: 'foo' })
     const selector = vi.fn((state: IState) => state.value)
 
-    render(
-      <context.Provider value={store}>
-        <Tester context={context} selector={selector} />
-      </context.Provider>
+    const { result } = renderHook(
+      () => ({
+        count: useRenderCounter()
+      , value: useSelector(context, selector)
+      })
+    , { wrapper: createWrapper(context, store) }
     )
 
-    screen.getByText(JSON.stringify({ count: 1, value: 'foo' }))
+    expect(result.current).toStrictEqual({ count: 1, value: 'foo' })
     expect(selector).toBeCalledTimes(1)
     expect(selector).toBeCalledWith({ value: 'foo' })
     expect(selector).toReturnWith('foo')
@@ -36,17 +39,19 @@ describe('useSelector', () => {
         const context = createStoreContext<IState>()
         const store = new Store<IState>({ value: 'foo' })
         const selector = vi.fn((state: IState) => state.value)
-        render(
-          <context.Provider value={store}>
-            <Tester context={context} selector={selector} />
-          </context.Provider>
+        const { result } = renderHook(
+          () => ({
+            count: useRenderCounter()
+          , value: useSelector(context, selector)
+          })
+        , { wrapper: createWrapper(context, store) }
         )
 
         act(() => {
           store.setState({ value: 'foo' })
         })
 
-        screen.getByText(JSON.stringify({ count: 1, value: 'foo' }))
+        expect(result.current).toStrictEqual({ count: 1, value: 'foo' })
         expect(selector).toBeCalledTimes(2)
         expect(selector).nthCalledWith(1, { value: 'foo' })
         expect(selector).nthReturnedWith(1, 'foo')
@@ -61,17 +66,19 @@ describe('useSelector', () => {
         const context = createStoreContext<IState>()
         const store = new Store<IState>({ value: 'foo' })
         const selector = vi.fn((state: IState) => state.value)
-        render(
-          <context.Provider value={store}>
-            <Tester context={context} selector={selector} />
-          </context.Provider>
+        const { result } = renderHook(
+          () => ({
+            count: useRenderCounter()
+          , value: useSelector(context, selector)
+          })
+        , { wrapper: createWrapper(context, store) }
         )
 
         act(() => {
           store.setState({ value: 'bar' })
         })
 
-        screen.getByText(JSON.stringify({ count: 2, value: 'bar' }))
+        expect(result.current).toStrictEqual({ count: 2, value: 'bar' })
         expect(selector).toBeCalledTimes(2)
         expect(selector).nthCalledWith(1, { value: 'foo' })
         expect(selector).nthReturnedWith(1, 'foo')
@@ -86,10 +93,12 @@ describe('useSelector', () => {
         const context = createStoreContext<IState>()
         const store = new Store<IState>({ value: 'foo' })
         const selector = vi.fn((state: IState) => state.value)
-        render(
-          <context.Provider value={store}>
-            <Tester context={context} selector={selector} />
-          </context.Provider>
+        const { result } = renderHook(
+          () => ({
+            count: useRenderCounter()
+          , value: useSelector(context, selector)
+          })
+        , { wrapper: createWrapper(context, store) }
         )
 
         act(() => {
@@ -97,7 +106,7 @@ describe('useSelector', () => {
           store.setState({ value: 'foo' })
         })
 
-        screen.getByText(JSON.stringify({ count: 2, value: 'foo' }))
+        expect(result.current).toStrictEqual({ count: 2, value: 'foo' })
         expect(selector).toBeCalledTimes(3)
         expect(selector).nthCalledWith(1, { value: 'foo' })
         expect(selector).nthReturnedWith(1, 'foo')
