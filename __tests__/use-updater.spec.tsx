@@ -1,25 +1,17 @@
-import { render, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { Store } from '@src/store.js'
-import { StoreContext, Updater } from '@src/types.js'
 import { createStoreContext } from '@src/create-store-context.js'
 import { useUpdater } from '@src/use-updater.js'
+import { createWrapper } from '@test/utils.js'
 
 describe('useUpdater', () => {
   test('reference equality', () => {
     const store = new Store({})
-    const Context = createStoreContext<unknown>()
+    const context = createStoreContext<unknown>()
 
     const { rerender, result } = renderHook(
-      () => useUpdater(Context)
-    , {
-        wrapper({ children }) {
-          return (
-            <Context.Provider value={store}>
-              {children}
-            </Context.Provider>
-          )
-        }
-      }
+      () => useUpdater(context)
+    , { wrapper: createWrapper(context, store) }
     )
     const result1 = result.current
     rerender()
@@ -36,18 +28,17 @@ describe('useUpdater', () => {
     const store = new Store<IState>({ value: 'foo' })
     const listener = vi.fn()
     store.subscribe(listener)
-    const callback = vi.fn((update: Updater<IState>) => update({ value: 'bar' }))
 
-    render(
-      <context.Provider value={store}>
-        <Tester
-          context={context}
-          callback={callback}
-        />
-      </context.Provider>
+    const { result } = renderHook(
+      () => useUpdater(context)
+    , { wrapper: createWrapper(context, store) }
     )
+    act(() => {
+      const update = result.current
 
-    expect(callback).toBeCalledTimes(1)
+      update({ value: 'bar' })
+    })
+
     expect(listener).toBeCalledTimes(1)
     expect(listener).toBeCalledWith({ value: 'bar' })
     expect(store.getState()).toStrictEqual({ value: 'bar' })
@@ -62,20 +53,19 @@ describe('useUpdater', () => {
       const store = new Store<IState>({ value: 'foo' })
       const listener = vi.fn()
       store.subscribe(listener)
-      const callback = vi.fn((update: Updater<IState>) => update(state => {
-        state.value = 'bar'
-      }))
 
-      render(
-        <context.Provider value={store}>
-          <Tester
-            context={context}
-            callback={callback}
-          />
-        </context.Provider>
+      const { result } = renderHook(
+        () => useUpdater(context)
+      , { wrapper: createWrapper(context, store) }
       )
+      act(() => {
+        const update = result.current
 
-      expect(callback).toBeCalledTimes(1)
+        update(state => {
+          state.value = 'bar'
+        })
+      })
+
       expect(listener).toBeCalledTimes(1)
       expect(listener).toBeCalledWith({ value: 'bar' })
       expect(store.getState()).toStrictEqual({ value: 'bar' })
@@ -89,32 +79,21 @@ describe('useUpdater', () => {
       const store = new Store<IState>({ value: 'foo' })
       const listener = vi.fn()
       store.subscribe(listener)
-      const callback = vi.fn((update: Updater<IState>) => update(state => {
-        return { value: 'bar' }
-      }))
 
-      render(
-        <context.Provider value={store}>
-          <Tester
-            context={context}
-            callback={callback}
-          />
-        </context.Provider>
+      const { result } = renderHook(
+        () => useUpdater(context)
+      , { wrapper: createWrapper(context, store) }
       )
+      act(() => {
+        const update = result.current
+        update(state => {
+          return { value: 'bar' }
+        })
+      })
 
-      expect(callback).toBeCalledTimes(1)
       expect(listener).toBeCalledTimes(1)
       expect(listener).toBeCalledWith({ value: 'bar' })
       expect(store.getState()).toStrictEqual({ value: 'bar' })
     })
   })
 })
-
-function Tester<State>({ context, callback }: {
-  context: StoreContext<State>
-  callback: (updater: Updater<State>) => void
-}) {
-  const update = useUpdater(context)
-  callback(update)
-  return null
-}
