@@ -4,7 +4,7 @@ import { createStoreContext } from '@src/create-store-context.js'
 import { StoreContext } from '@src/types.js'
 import { useSelector } from '@src/use-selector.js'
 import { useRenderCounter } from 'extra-react-hooks'
-import { assert } from '@blackglory/prelude'
+import { assert, isntUndefined } from '@blackglory/prelude'
 import { createWrapper } from './utils.js'
 
 describe('useSelector', () => {
@@ -123,9 +123,8 @@ describe('useSelector', () => {
         const context = createStoreContext<IState>()
         const store = new Store<IState>({ list: ['foo', 'bar'] })
         render(
-          <context.Provider value={store}>
-            <Parent />
-          </context.Provider>
+          <Parent />
+        , { wrapper: createWrapper(context, store) }
         )
 
         act(() => {
@@ -137,7 +136,9 @@ describe('useSelector', () => {
         function Parent() {
           const list = useSelector(context, x => x.list)
 
-          return list.map((value, i) => <Child context={context} key={value} index={i} />)
+          return list.map((value, i) => (
+            <Child context={context} key={value} index={i} />
+          ))
         }
 
         function Child({ context, index }: {
@@ -146,7 +147,7 @@ describe('useSelector', () => {
         }) {
           const value = useSelector(context, x => {
             const result = x.list[index]
-            assert(result)
+            assert(isntUndefined(result))
 
             return result
           })
@@ -161,31 +162,22 @@ describe('useSelector', () => {
       const store = new Store<null>(null)
       const selector1 = vi.fn(() => 'foo')
       const selector2 = vi.fn(() => 'bar')
-      const { rerender } = render(
-        <context.Provider value={store}>
-          <Tester context={context} selector={selector1} />
-        </context.Provider>
+      const { rerender, result } = renderHook(
+        ({ selector }) => ({
+          count: useRenderCounter()
+        , value: useSelector(context, selector)
+        })
+      , {
+          wrapper: createWrapper(context, store)
+        , initialProps: { selector: selector1 }
+        }
       )
 
-      rerender(
-        <context.Provider value={store}>
-          <Tester context={context} selector={selector2} />
-        </context.Provider>
-      )
+      rerender({ selector: selector2 })
 
-      screen.getByText(JSON.stringify({ count: 2, value: 'bar' }))
+      expect(result.current).toStrictEqual({ count: 2, value: 'bar' })
       expect(selector1).toBeCalledTimes(1)
       expect(selector2).toBeCalledTimes(1)
     })
   })
 })
-
-function Tester<State>({ context, selector }: {
-  context: StoreContext<State>
-  selector: (state: State) => string
-}) {
-  const count = useRenderCounter()
-  const value = useSelector(context, selector)
-
-  return JSON.stringify({ count, value })
-}
