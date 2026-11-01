@@ -23,6 +23,7 @@ export function useSelector<State, Value>(
     updateRequireRef.current = false
   }
 
+  const getSnapshot = useCallback(() => valueRef.current!, [valueRef])
   return useSyncExternalStore(
     useCallback((onStoreChange: () => void) => {
       return store.subscribe(state => {
@@ -40,6 +41,7 @@ export function useSelector<State, Value>(
         }
       })
     }, [store, selector, isEqual, updateRequireRef, valueRef])
-  , useCallback(() => valueRef.current!, [valueRef])
+  , getSnapshot
+  , getSnapshot
   )
 }
