@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.9](https://github.com/BlackGlory/extra-react-store/compare/v0.2.8...v0.2.9) (2026-11-01)
+
+
+### Bug Fixes
+
+* **use-selector:** add `getServerSnapshot` ([7da0c34](https://github.com/BlackGlory/extra-react-store/commit/7da0c3466f377095169280d2eb7849aaf6999470))
+
 ### [0.2.8](https://github.com/BlackGlory/extra-react-store/compare/v0.2.7...v0.2.8) (2026-11-01)
 
 ### [0.2.7](https://github.com/BlackGlory/extra-react-store/compare/v0.2.6...v0.2.7) (2026-10-25)
