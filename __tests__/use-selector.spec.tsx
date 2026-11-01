@@ -103,17 +103,17 @@ describe('useSelector', () => {
 
         act(() => {
           store.setState({ value: 'bar' })
-          store.setState({ value: 'foo' })
+          store.setState({ value: 'baz' })
         })
 
-        expect(result.current).toStrictEqual({ count: 2, value: 'foo' })
+        expect(result.current).toStrictEqual({ count: 2, value: 'baz' })
         expect(selector).toBeCalledTimes(3)
         expect(selector).nthCalledWith(1, { value: 'foo' })
         expect(selector).nthReturnedWith(1, 'foo')
         expect(selector).nthCalledWith(2, { value: 'bar' })
         expect(selector).nthReturnedWith(2, 'bar')
-        expect(selector).nthCalledWith(3, { value: 'foo' })
-        expect(selector).nthReturnedWith(3, 'foo')
+        expect(selector).nthCalledWith(3, { value: 'baz' })
+        expect(selector).nthReturnedWith(3, 'baz')
       })
 
       test('edge: zombie children', () => {

@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { useIIFE, useForceUpdate, useStrictContext } from 'extra-react-hooks'
+import { useCallback, useRef, useSyncExternalStore } from 'react'
+import { useIIFE, useStrictContext } from 'extra-react-hooks'
 import { StoreContext } from './types.js'
 import { isReferenceEqual } from 'extra-utils'
 
@@ -8,7 +8,6 @@ export function useSelector<State, Value>(
 , selector: (state: State) => Value
 , isEqual: (a: Value, b: Value) => boolean = isReferenceEqual
 ): Value {
-  const forceUpdate = useForceUpdate()
   const store = useStrictContext(context)
 
   const updateRequireRef = useRef<boolean>(true)
@@ -24,21 +23,22 @@ export function useSelector<State, Value>(
     updateRequireRef.current = false
   }
 
-  useIIFE(() => {
-    return store.subscribe(state => {
-      try {
-        const newValue = selector(state)
+  return useSyncExternalStore(
+    useCallback((onStoreChange: () => void) => {
+      return store.subscribe(state => {
+        try {
+          const newValue = selector(state)
 
-        if (!isEqual(valueRef.current!, newValue)) {
-          valueRef.current = newValue
-          forceUpdate()
+          if (!isEqual(valueRef.current!, newValue)) {
+            valueRef.current = newValue
+            onStoreChange()
+          }
+        } catch {
+          updateRequireRef.current = true
+          onStoreChange()
         }
-      } catch {
-        updateRequireRef.current = true
-        forceUpdate()
-      }
-    })
-  }, [store, selector, isEqual, forceUpdate, valueRef, updateRequireRef])
-
-  return valueRef.current!
+      })
+    }, [store, selector, isEqual, updateRequireRef, valueRef])
+  , useCallback(() => valueRef.current!, [valueRef])
+  )
 }
