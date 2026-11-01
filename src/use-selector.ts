@@ -31,6 +31,7 @@ export function useSelector<State, Value>(
 
           if (!isEqual(valueRef.current!, newValue)) {
             valueRef.current = newValue
+            updateRequireRef.current = false
             onStoreChange()
           }
         } catch {
